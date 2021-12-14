@@ -1,5 +1,6 @@
 module JuliaUtils
-export linearls, predict
+import Plots
+export linearls, predict, plot!
 
 include("LinearLS.jl")
 
