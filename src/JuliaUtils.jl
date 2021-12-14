@@ -1,7 +1,6 @@
 module JuliaUtils
+export linearls, predict
 
 include("LinearLS.jl")
-
-export linearls, predict
 
 end
