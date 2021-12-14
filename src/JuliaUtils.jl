@@ -1,5 +1,7 @@
 module JuliaUtils
 
-# Write your package code here.
+include("LinearLS.jl")
+
+export linearls, predict
 
 end
