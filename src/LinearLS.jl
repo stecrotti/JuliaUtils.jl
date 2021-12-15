@@ -1,9 +1,9 @@
 struct LinearLS{T<:Real}
-    x :: Vector{T}
-    y :: Vector{T}
-    f :: Function
-    m :: Float64
-    q :: Float64
+    x :: Vector{T}  # x data
+    y :: Vector{T}  # y data
+    f :: Function   # y = m*f(x) + q
+    m :: Float64    # slope
+    q :: Float64    # intercept
 end
 
 function linearls(x::AbstractVector, y::AbstractVector, f::Function=x->x)
@@ -14,14 +14,4 @@ end
 
 function predict(ls::LinearLS, x::AbstractVector)
     ls.f.(x) .* ls.m .+ ls.q
-end
-
-function Plots.plot!(pl::Plots.Plot, ls::LinearLS;
-        pointslabel="Data", fitlabel="Fit", kw...)
-    (xmin, xmax) = extrema(ls.x)
-    xspan = xmax - xmin
-    Plots.scatter!(pl, ls.x, ls.y, label=pointslabel)
-    xrange = LinRange(xmin-0.2*xspan, xmax+0.2*xspan, 10*length(ls.x))
-    Plots.plot!(pl, xrange, predict(ls, xrange); label=fitlabel, kw...)
-    pl
 end
