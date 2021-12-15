@@ -3,8 +3,6 @@ uuid = "fd6063e2-1dc5-4798-bfc3-ae02d434e5d9"
 authors = ["Stefano Crotti"]
 version = "0.1.0"
 
-[deps]
-
 [compat]
 julia = "1"
 
