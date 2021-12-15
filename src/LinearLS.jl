@@ -6,6 +6,13 @@ struct LinearLS{T<:Real}
     q :: Float64    # intercept
 end
 
+function Base.show(io::IO, ls::LinearLS)
+    println(io, "Linear fit Y ~ m*f(X) + q")
+    println(io, "\tf = ", ls.f)
+    println(io, "\tm = ", ls.m)
+    println(io, "\tq = ", ls.q)
+end
+
 """
     linearls(x::AbstractVector, y::AbstractVector, f::Function=x->x)
 
