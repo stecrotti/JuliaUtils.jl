@@ -9,3 +9,6 @@ Just learning how to make a Julia package
 
 ## LinearLS
 Quick linear fit
+
+## Newton
+Quick 1-d Newton method
