@@ -5,5 +5,7 @@
 [![Coverage](https://codecov.io/gh/stecrotti/JuliaUtils.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/stecrotti/JuliaUtils.jl)
 [![Coverage](https://coveralls.io/repos/github/stecrotti/JuliaUtils.jl/badge.svg?branch=main)](https://coveralls.io/github/stecrotti/JuliaUtils.jl?branch=main)
 
+Just learning how to make a Julia package
+
 ## LinearLS
 Quick linear fit
