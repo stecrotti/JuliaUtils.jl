@@ -2,12 +2,13 @@ struct LinearLS{T<:Real}
     x :: Vector{T}  # x data
     y :: Vector{T}  # y data
     f :: Function   # y = m*f(x) + q
+    w :: Vector{T}  # weights (inverse a priori error on the `y`'s)
     m :: Float64    # slope
     q :: Float64    # intercept
-    function LinearLS(x::AbstractVector{T1}, y::AbstractVector{T2}, f::Function,
-        m::Real, q::Real) where {T1<:Real, T2<:Real}
-        T = promote_type(eltype(x), eltype(y))
-        new{T}(Vector{T}(x), Vector{T}(y), f, m, q)
+    function LinearLS(x::AbstractVector{<:Real}, y::AbstractVector{<:Real}, 
+        f::Function, w::AbstractVector{<:Real}, m::Real, q::Real) 
+        T = promote_type(eltype(x), eltype(y), eltype(w))
+        new{T}(Vector{T}(x), Vector{T}(y), f, Vector{T}(w), m, q)
     end
 end
 
@@ -25,10 +26,12 @@ Linear fit for `y = m*f(x) + q`.
 Return a `LinearLS` object storing the estimated `m, q` 
 
 """
-function linearls(x::AbstractVector, y::AbstractVector, f::Function=identity)
-    X = [f.(x) ones(length(x))]
-    m, q = X \ y
-    LinearLS(x, y, f, m, q)
+function linearls(x::AbstractVector, y::AbstractVector, f::Function=identity;
+        weights=ones(length(x)))
+    X = diagm(weights) * [f.(x) ones(length(x))]
+    Y = weights .* y
+    m, q = X \ Y
+    LinearLS(x, y, f, weights, m, q)
 end
 
 """
