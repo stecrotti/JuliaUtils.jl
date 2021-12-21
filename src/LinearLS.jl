@@ -4,6 +4,11 @@ struct LinearLS{T<:Real}
     f :: Function   # y = m*f(x) + q
     m :: Float64    # slope
     q :: Float64    # intercept
+    function LinearLS(x::AbstractVector{T1}, y::AbstractVector{T2}, f::Function,
+        m::Real, q::Real) where {T1<:Real, T2<:Real}
+        T = promote_type(eltype(x), eltype(y))
+        new{T}(Vector{T}(x), Vector{T}(y), f, m, q)
+    end
 end
 
 function Base.show(io::IO, ls::LinearLS)
@@ -15,12 +20,12 @@ end
 
 """
     linearls(x::AbstractVector, y::AbstractVector, f::Function=x->x)
-
+ 
 Linear fit for `y = m*f(x) + q`.
 Return a `LinearLS` object storing the estimated `m, q` 
 
 """
-function linearls(x::AbstractVector, y::AbstractVector, f::Function=x->x)
+function linearls(x::AbstractVector, y::AbstractVector, f::Function=identity)
     X = [f.(x) ones(length(x))]
     m, q = X \ y
     LinearLS(x, y, f, m, q)
