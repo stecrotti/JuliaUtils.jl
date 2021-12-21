@@ -1,5 +1,6 @@
 module JuliaUtils
 
+using LinearAlgebra
 using ForwardDiff
 
 export linearls, predict
