@@ -20,10 +20,12 @@ function Base.show(io::IO, ls::LinearLS)
 end
 
 """
-    linearls(x::AbstractVector, y::AbstractVector, f::Function=x->x)
+    linearls(x::AbstractVector, y::AbstractVector, f::Function=identity;
+        weights=ones(length(x)))
  
 Linear fit for `y = m*f(x) + q`.
 Return a `LinearLS` object storing the estimated `m, q` 
+Optionally provide `weights` for Weighted LS
 
 """
 function linearls(x::AbstractVector, y::AbstractVector, f::Function=identity;
